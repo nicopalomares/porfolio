@@ -13,11 +13,27 @@ import HelloWorld from './components/HelloWorld.vue'
       </nav>
     </div>
   </header> -->
-
-  <RouterView />
+  <transition name="slide" mode="out-in">
+    <RouterView />
+  </transition>
 </template>
 
 <style scoped>
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.5s ease;
+}
+
+.slide-enter-from {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.slide-leave-to {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
 .logo {
   display: block;
   margin: 0 auto 2rem;

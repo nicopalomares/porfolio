@@ -14,8 +14,9 @@
         <h3>Software developer
           & musician</h3>
         <div class="buttons_container">
-          <a href="/projects">See my work</a>
-          <a href="/history">About me</a>
+          <router-link :to="`/projects`">See my work</router-link>
+          <router-link :to="`/about`">About me</router-link>
+          <router-link :to="`/contact-me`">Contact me</router-link>
         </div>
 
       </div>

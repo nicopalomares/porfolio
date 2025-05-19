@@ -1,6 +1,7 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRoute } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+const route = useRoute()
 </script>
 
 <template>
@@ -13,9 +14,13 @@ import HelloWorld from './components/HelloWorld.vue'
       </nav>
     </div>
   </header> -->
-  <transition name="slide" mode="out-in">
-    <RouterView />
-  </transition>
+
+  <router-view v-slot="{ Component }" :key="route.params.id">
+    <transition name="slide" mode="out-in">
+      <component :is="Component" />
+    </transition>
+  </router-view>
+
 </template>
 
 <style scoped>

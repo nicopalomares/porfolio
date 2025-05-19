@@ -125,7 +125,7 @@ onUnmounted(() => {
         width: 100%;
         height: 4px;
         position relative
-        max-width: 1750px;
+        max-width: 1100px;
         .arrow
             position: absolute;
             top: 50%;

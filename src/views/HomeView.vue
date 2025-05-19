@@ -9,8 +9,5 @@ import AppsItem from '../components/AppsItem.vue'
 <template>
   <main>
     <WelcomeItem />
-    <historyItem />
-    <sections />
-    <appsItem />
   </main>
 </template>

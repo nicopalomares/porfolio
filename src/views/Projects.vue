@@ -1,20 +1,11 @@
 <script setup>
-import qrioImage from '@/assets/images/qrio-image.svg'
-import mseGruppeImage from '@/assets/images/mse-gruppe.svg'
-import next125Image from '@/assets/images/next125.svg'
-import greenlyImage from '@/assets/images/greenly.webp'
-import omniviseImage from '@/assets/images/siemmens.svg'
-import nextImage from '@/assets/icons/disc1.svg'
 import { ref, onMounted } from 'vue'
-import { getProjects } from '@/api/api'
-import { computed } from 'vue'
+import { useDataStore } from "@/stores/useDataStore.js"
 
 const baseUrl = import.meta.env.VITE_BASE_URL
-
+const dataStore = useDataStore()
 const fullImageUrl = (fileName) => `${baseUrl}${fileName}`
-
 const actualIndex = ref(0)
-const projects = ref([0])
 const actualColor = ref(['rgba(146, 218, 255, 1)', 'rgba(236, 235, 224, 1)'])
 
 const handleChange = (newIndex) => {
@@ -24,57 +15,26 @@ const handleChange = (newIndex) => {
 }
 
 onMounted(async () => {
-    let { data } = await getProjects()
-    projects.value = data
+    dataStore.fetchProjects()
 })
 
 const appsContent = [
     {
-        title: 'Omnivise App',
-        subtitle: 'Oeding design',
-        icon: omniviseImage,
-        id: 1,
-        link: '#apps',
         bgColor: 'rgba(146, 218, 255, 1)'
     },
     {
-        title: 'Mse Gruppe',
-        subtitle: 'Oeding design',
-        id: 2,
-        icon: mseGruppeImage,
-        link: '#companies',
-        bgColor: 'rgba(236, 235, 224, 1)'
+        bgColor: 'blue'
     },
     {
-        title: 'Next 125',
-        subtitle: 'Oeding desing',
-        id: 3,
-        icon: next125Image,
-        link: '#ECEBE0',
-        bgColor: '#fff'
+        bgColor: 'red'
     },
     {
-        title: 'Greenly',
-        subtitle: 'lilla software studio',
-        icon: greenlyImage,
-        id: 4,
-        link: '#about',
         bgColor: 'rgba(255, 248, 86, 1)'
     },
     {
-        title: 'QRIO',
-        subtitle: 'QRIO',
-        icon: qrioImage,
-        id: 5,
-        link: '#about',
         bgColor: 'rgba(249, 187, 203, 1)'
     },
     {
-        title: 'Next is yours',
-        subtitle: 'You',
-        icon: nextImage,
-        id: 6,
-        link: '#about',
         bgColor: 'rgba(255, 86, 44, 1)'
     },
 ]
@@ -84,22 +44,28 @@ const appsContent = [
 <template>
     <section id="projects">
         <div class="container">
+
+            <router-link to="/">
+                <img class="back_button" src="@/assets/icons/arrow_right.svg" alt="">
+            </router-link>
+
             <transition name="fade" mode="out-in">
                 <div class="image_container" :style="{ backgroundColor: appsContent[actualIndex].bgColor }">
-                    <img :src="fullImageUrl(project.company)" alt="" v-for="(project, index) in projects" :key="index"
-                        :class="index == actualIndex ? 'active' : ''" />
+                    <img :src="fullImageUrl(project.company)" alt="" v-for="(project, index) in dataStore.projects"
+                        :key="index" :class="index == actualIndex ? 'active' : ''" />
                 </div>
             </transition>
 
 
             <div class="projects_container">
                 <h1 class="title">Projects</h1>
-                <div class="projects_list" v-for="(project, index) in projects" :key="index">
-                    <a class="project"
+                <div class="projects_list" v-for="(project, index) in dataStore.projects" :key="index">
+
+                    <router-link class="project"
                         :style="{ color: actualColor == appsContent[index].bgColor ? actualColor : 'inherit' }"
-                        v-on:mouseenter="handleChange(index)" :href="`/projects/${project.id}`">
-                        {{ project.title }}
-                    </a>
+                        v-on:mouseenter="handleChange(index)" :to="`/projects/${project.id}`"> {{ project.title
+                        }}</router-link>
+
                 </div>
             </div>
         </div>
@@ -117,6 +83,18 @@ const appsContent = [
             display: flex
             justify-content: center
             gap: 5rem
+            .back_button
+                width 3rem
+                height: 3rem
+                position: absolute
+                left: 4rem
+                transform: rotate(180deg);
+                top: 3rem;
+                cursor: pointer;
+                transition: all 0.3s ease-in-out;
+                &:hover
+                    color: $pinkColor
+                    scale: 1.1
             .projects_container
                 padding: 2rem
                 .title

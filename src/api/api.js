@@ -13,16 +13,3 @@ export const getProjects = async () => {
     console.error('Error fetching data:', error)
   }
 }
-export const getProjectById = async (id) => {
-  try {
-    const response = await fetch(`${apiUrl}projects/${id}`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    })
-    if (response.ok) {
-      return await response.json()
-    }
-  } catch (error) {
-    console.error('Error fetching data:', error)
-  }
-}

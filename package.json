@@ -13,8 +13,10 @@
     "@fontsource-variable/syne": "^5.2.5",
     "gsap": "^3.13.0",
     "pinia": "^3.0.2",
-    "vue": "^3.5.13",
-    "vue-router": "^4.5.0"
+    "pinia-plugin-persistedstate": "^4.3.0",
+    "vue": "^3.5.14",
+    "vue-router": "^4.5.0",
+    "vue-strapi-blocks-renderer": "^0.2.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.3",

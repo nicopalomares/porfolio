@@ -1,98 +1,53 @@
 <script setup>
 import { RouterLink, RouterView, useRoute } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { ref, watch, onMounted, watchEffect } from 'vue'
+import gsap from 'gsap'
+import { SplitText } from 'gsap/all'
+import NavBar from './components/NavBar.vue'
+import { useI18n } from 'vue-i18n'
+const { locale } = useI18n();
+
+
+gsap.registerPlugin(SplitText)
 const route = useRoute()
+
+
 </script>
 
 <template>
-  <!-- <header>
 
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header> -->
+  <nav-bar />
+  <div class="page-content" ref="container">
+    <router-view v-slot="{ Component }" :key="route.params.id">
+      <transition name="slide" mode="out-in">
+        <component :is="Component" :key="locale" />
+      </transition>
+    </router-view>
+  </div>
 
-  <router-view v-slot="{ Component }" :key="route.params.id">
-    <transition name="slide" mode="out-in">
-      <component :is="Component" />
-    </transition>
-  </router-view>
+
 
 </template>
 
-<style scoped>
+<style scoped lang="stylus">
 .slide-enter-active,
-.slide-leave-active {
+.slide-leave-active
   transition: all 0.5s ease;
-}
 
-.slide-enter-from {
+
+.slide-enter-from
   transform: translateX(100%);
   opacity: 0;
-}
 
-.slide-leave-to {
+
+.slide-leave-to
   transform: translateX(-100%);
   opacity: 0;
-}
 
-.logo {
+
+.logo
   display: block;
   margin: 0 auto 2rem;
-}
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
 </style>

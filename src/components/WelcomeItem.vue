@@ -10,9 +10,10 @@
         </video>
       </div>
       <div class="third_container">
-        <h3>Building your dreams</h3><br>
-        <h3>Software developer
-          & musician</h3>
+        <!-- <h3>{{ t("firstHeadling") }}</h3><br> -->
+
+        <h3>{{ t('home.firstHeadling') }}</h3>
+        <h3>{{ t('home.secondHeadling') }}</h3>
         <div class="buttons_container">
           <router-link :to="`/projects`">See my work</router-link>
           <router-link :to="`/about`">About me</router-link>
@@ -24,6 +25,13 @@
   </section>
 
 </template>
+
+<script setup>
+
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
+
+</script>
 
 <style lang="stylus" scoped>
 

@@ -1,6 +1,6 @@
 import { getProjects } from '@/api/api'
 import { defineStore } from 'pinia'
-
+// const { t } = useI18n()
 const apiUrl = import.meta.env.VITE_API_URL
 
 export const useDataStore = defineStore('data', {
@@ -8,10 +8,11 @@ export const useDataStore = defineStore('data', {
     projects: [],
   }),
   persist: true,
-
   actions: {
-    async fetchProjects() {
-      const { data } = await getProjects()
+    async fetchProjects(language) {
+      // let language = t('language')
+
+      const { data } = await getProjects(language)
       this.projects = data
     },
     fetchProjectById(id) {

@@ -20,7 +20,7 @@
                                 <h4>Company</h4>
                             </td>
                             <td>
-                                <p>Siemmens</p>
+                                <p>{{ project.company.name }}</p>
                             </td>
                         </tr>
                         <tr>
@@ -28,7 +28,7 @@
                                 <h4>Year</h4>
                             </td>
                             <td>
-                                <p>2024</p>
+                                <p>{{ project.company.year }}</p>
                             </td>
                         </tr>
                         <tr>
@@ -43,10 +43,13 @@
                             </td>
                         </tr>
 
-                        <StrapiBlocks :content="contentRichText" />
 
                     </tbody>
+
                 </table>
+                <div class="description" v-if="contentRichText">
+                    <StrapiBlocks :content="contentRichText" />
+                </div>
 
             </div>
 
@@ -78,37 +81,21 @@ import { useRoute, useRouter } from 'vue-router'
 import { useDataStore } from "@/stores/useDataStore.js"
 import { StrapiBlocks } from 'vue-strapi-blocks-renderer';
 
-
-
-const content = [
-    {
-        type: 'paragraph',
-        children: [{ type: 'text', text: 'A simple paragraph' }],
-    },
-];
-
-
 const dataStore = useDataStore()
 const baseUrl = import.meta.env.VITE_BASE_URL
 const route = useRoute()
-const router = useRouter()
 const project = ref(null)
 const nextProject = ref(null)
 
 const fullImageUrl = (fileName) => `${baseUrl}${fileName}`
-const goBack = () => router.back()
+
 const setData = async () => {
     let projectId = route.params.id
     const actualProject = await dataStore.fetchProjectById(projectId)
     project.value = actualProject
-    console.log(actualProject, "actualProject")
+    console.log(project.value, "project.value")
     let nexProjectIndex = dataStore.projects.findIndex(item => item.id == projectId) + 1
     nextProject.value = dataStore.projects[nexProjectIndex]
-}
-const RichTextRenderer = {
-    render() {
-        return dcoumentT(project.value.description)
-    }
 }
 
 const contentRichText = computed(() => {
@@ -117,7 +104,6 @@ const contentRichText = computed(() => {
     } else {
         return []
     }
-
 })
 
 onMounted(async () => {
@@ -128,61 +114,6 @@ watch(() => route.params.id, () => {
     setData()
 })
 
-// const appsContent = [
-//     {
-//         title: 'Omnivise App',
-//         subtitle: 'Oeding design',
-//         icon: omniviseImage,
-//         images:
-//             [img1Omnivise,
-//                 img2Omnivise,
-//                 img3Omnivise,
-//             ],
-//         id: 1,
-//         link: '#apps',
-//         bgColor: 'rgba(146, 218, 255, 1)'
-//     },
-//     {
-//         title: 'Mse Gruppe',
-//         subtitle: 'Oeding design',
-//         id: 2,
-//         icon: mseGruppeImage,
-//         link: '#companies',
-//         bgColor: 'rgba(236, 235, 224, 1)'
-//     },
-//     {
-//         title: 'Next 125',
-//         subtitle: 'Oeding desing',
-//         id: 3,
-//         icon: next125Image,
-//         link: '#ECEBE0',
-//         bgColor: '#fff'
-//     },
-//     {
-//         title: 'Greenly',
-//         subtitle: 'lilla software studio',
-//         icon: greenlyImage,
-//         id: 4,
-//         link: '#about',
-//         bgColor: 'rgba(255, 248, 86, 1)'
-//     },
-//     {
-//         title: 'QRIO',
-//         subtitle: 'QRIO',
-//         icon: qrioImage,
-//         id: 5,
-//         link: '#about',
-//         bgColor: 'rgba(249, 187, 203, 1)'
-//     },
-//     {
-//         title: 'Next is yours',
-//         subtitle: 'You',
-//         icon: nextImage,
-//         id: 6,
-//         link: '#about',
-//         bgColor: 'rgba(255, 86, 44, 1)'
-//     },
-// ]
 
 </script>
 
@@ -228,9 +159,10 @@ watch(() => route.params.id, () => {
         .table
             display: flex
             height: 15rem
+
             table
                 width 50%
-            p
+            .description
                 width 50%
             td
                 vertical-align: top;

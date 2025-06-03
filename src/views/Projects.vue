@@ -1,12 +1,15 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useDataStore } from "@/stores/useDataStore.js"
+import { useI18n } from 'vue-i18n'
 
 const baseUrl = import.meta.env.VITE_BASE_URL
 const dataStore = useDataStore()
 const fullImageUrl = (fileName) => `${baseUrl}${fileName}`
 const actualIndex = ref(0)
 const actualColor = ref(['rgba(146, 218, 255, 1)', 'rgba(236, 235, 224, 1)'])
+const { locale } = useI18n();
+let language = localStorage.getItem('lang')
 
 const handleChange = (newIndex) => {
     if (actualIndex.value[1] == newIndex) return
@@ -15,8 +18,13 @@ const handleChange = (newIndex) => {
 }
 
 onMounted(async () => {
-    dataStore.fetchProjects()
+
+    dataStore.fetchProjects(language)
 })
+
+watch(locale, () => {
+    dataStore.fetchProjects(language)
+});
 
 const appsContent = [
     {
@@ -51,7 +59,7 @@ const appsContent = [
 
             <transition name="fade" mode="out-in">
                 <div class="image_container" :style="{ backgroundColor: appsContent[actualIndex].bgColor }">
-                    <img :src="fullImageUrl(project.company)" alt="" v-for="(project, index) in dataStore.projects"
+                    <img :src="fullImageUrl(project.company.icon)" alt="" v-for="(project, index) in dataStore.projects"
                         :key="index" :class="index == actualIndex ? 'active' : ''" />
                 </div>
             </transition>

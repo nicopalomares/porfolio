@@ -4,9 +4,14 @@
         <div class="menu-container">
             <div class="language-selector">
                 <!-- <span>{{ t('lang') }}:</span> -->
-                <button @click="setLanguage('en')" style="margin-right: 8px">English</button>
-                <button @click="setLanguage('de')">Japanese</button>
+                <a href="#" class="menu-item-name">Home</a>
+                <ul class="menu-item-list">
+                    <li @click="setLanguage('en')" style="margin-right: 8px">English</li>
+                    <li @click="setLanguage('de')">Japanese</li>
+                </ul>
+
             </div>
+
 
             <div class="hamburger" :class="{ open: isOpen }" @click="toggleMenu" v-on:mouseenter="inMouseEnter()">
                 <span></span>

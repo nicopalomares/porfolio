@@ -117,5 +117,20 @@ onMounted(async () => {
         width 50%
         padding: 8rem 6rem;
 
-
+@media screen and (max-width: 768px)
+    .contact_container
+        flex-direction: column;
+        height: 100vh;
+        .form_container
+            width: 100%;
+            padding: 2rem;
+            form
+                padding: 0
+        .text_container
+            width: 100%;
+            text-align: center;
+            padding: 4rem 1rem 0rem 1rem;
+            h1
+                font-size: 2rem;
+                margin-bottom: 1rem;
 </style>

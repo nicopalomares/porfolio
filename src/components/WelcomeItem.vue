@@ -10,14 +10,12 @@
         </video>
       </div>
       <div class="third_container">
-        <!-- <h3>{{ t("firstHeadling") }}</h3><br> -->
-
         <h3>{{ t('home.firstHeadling') }}</h3>
-        <h3>{{ t('home.secondHeadling') }}</h3>
+        <h3 class="second-headline">{{ t('home.secondHeadling') }}</h3>
         <div class="buttons_container">
-          <router-link :to="`/projects`">See my work</router-link>
-          <router-link :to="`/about`">About me</router-link>
-          <router-link :to="`/contact-me`">Contact me</router-link>
+          <router-link :to="`/projects`">{{ t('nav.projects') }}</router-link>
+          <router-link :to="`/about`">{{ t('nav.about') }}</router-link>
+          <router-link :to="`/contact-me`">{{ t('nav.contact') }}</router-link>
         </div>
 
       </div>
@@ -36,20 +34,19 @@ const { t } = useI18n();
 <style lang="stylus" scoped>
 
 #welcome
-
   font-family: 'Syne'
+  height: 100vh
   .first_container
-    height: 50vh;
+    height: 50%
     width: 100%;
     background-color: $greyColor
-
     display: flex
     .title
       margin: auto auto
       text-align: center
       font-size: 10rem
   .subContainer
-    height: 50vh
+    height: 50%
     display: flex
     .second_container
       width: 60%;
@@ -68,7 +65,7 @@ const { t } = useI18n();
         font-weight: 600
       .buttons_container
         display: flex
-        height: 50%
+        height: 10rem;
         justify-content: center
         align-items: center
         gap: 2rem
@@ -76,10 +73,9 @@ const { t } = useI18n();
           all: unset
           cursor: pointer
           color: inherit
-          font-size: 2rem
+          font-size: 1.5rem
           position: relative;
           display: inline-block;
-          color: black;
           text-decoration: none;
           overflow: hidden;
           &::before
@@ -93,5 +89,47 @@ const { t } = useI18n();
             transition: width 0.3s ease;
           &:hover::before
             width: 100%;
+@media screen and (max-width: 1140px)
+  #welcome
+    .first_container
+      .title
+        font-size: 7rem;
+    .subContainer
+      .third_container
+        h3
+          font-size: 2rem;
 
+@media screen and (max-width: 768px)
+  #welcome
+    .first_container
+      height: 30vh;
+      .title
+        font-size: 2rem;
+    .subContainer
+      flex-direction: column-reverse;
+      height: 70vh;
+      .second_container
+        width: 100%;
+        height: 50%;
+        video
+          height: 100%;
+      .third_container
+        width: 100%;
+        height: 50%;
+        padding: 1rem;
+        text-align: center
+
+        h3
+          font-size: 1.5rem;
+        .second-headline
+          text-decoration: underline;
+        .buttons_container
+          border-top: 1px solid;
+          height: 25%;
+          margin-top: 1rem;
+          width: 100%;
+          padding: 1rem 0rem;
+          a
+            border-bottom: 1px solid;
+            font-size: 1rem;
 </style>

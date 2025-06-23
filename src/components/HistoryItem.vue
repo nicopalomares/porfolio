@@ -1,6 +1,9 @@
 <template>
     <section class="trigger-section" ref="triggerRef">
-        <div class="animation_container" ref="containerRef">
+        <router-link to="/">
+            <img class="back_button" src="@/assets/icons/arrow_right.svg" alt="">
+        </router-link>
+        <div class="animation_container" ref="containerRef" v-if="checkWidth()">
             <div class="arrow">
                 <div class="stick top first">
                     <div class="text-container">
@@ -39,6 +42,36 @@
                 <div class="circle four"></div>
             </div>
         </div>
+        <div v-else class="mobile-container">
+            <div class="text first">
+                <h1>H1 2021-2023</h1>
+                <h2>Lilla Software Studio</h2>
+                <p>Front end and Mobile developer
+                    .Mendoza, Argentina</p>
+            </div>
+            <div class="stick first">
+                <div class="circle first"></div>
+            </div>
+
+            <div class="text second">
+                <h1>H1 2021-2023</h1>
+                <h2>Qrio</h2>
+                <p>Front end and Mobile developer
+                    .Mendoza, Argentina</p>
+            </div>
+            <div class="stick second">
+                <div class="circle second"></div>
+            </div>
+            <div class="text third">
+                <h1>H1 2023-Now</h1>
+                <h2>Oeding desing</h2>
+                <p>Front end developer
+                    .Mendoza, Argentina</p>
+            </div>
+            <div class="stick third">
+                <div class="circle third"></div>
+            </div>
+        </div>
     </section>
 </template>
 
@@ -50,6 +83,10 @@ const triggerRef = ref(null)
 const containerRef = ref(null)
 
 let observer = null
+
+function checkWidth() {
+    return window.innerWidth > 768
+}
 
 onMounted(() => {
     const sticks = containerRef.value.querySelectorAll('.stick')
@@ -65,6 +102,7 @@ onMounted(() => {
                     opacity: 1
                 })
                 if (sticks.length > 0) {
+                    let windowWidth = window.innerWidth
                     sticks.forEach((stick, index) => {
                         if (stick.classList.contains('top')) {
                             gsap.to(stick, {
@@ -83,6 +121,7 @@ onMounted(() => {
                                 opacity: 1
                             })
                         }
+
                     })
                 }
                 gsap.to(circles, {
@@ -204,7 +243,59 @@ onUnmounted(() => {
       margin: auto auto
       text-align: center
       font-size: 10rem
+@media screen and (max-width: 768px)
+    .trigger-section
+    .mobile-container
+        .text
+            width 75%
+            margin-bottom: 1rem;
+            margin-top: 1rem;
+            h1
+                font-size: 20px
+            h2
+                font-size: 20px
+            p
+                font-size: 14px
+        .second
+            text-align: end
+        .stick
+            height: 4px
+            width 80vw
+            position: relative;
+            &.first
+                background-color: $pinkColor
+                .text
+                    top: -4rem;
+                    text-align: flex-end
+            &.second
+                background-color: $greyColor
+                .text
+                    top: 4rem;
+            &.third
+                background-color: $yellowColor
+                .text
+                    top: -4rem;
+            &.four
+                left:95%;
+                background-color: $redColor
+        .circle
+            width: 3rem;
+            height: 3rem;
+            position: absolute;
+            border-radius: 50%;
+            &.first
+                right: -1.5rem;
+                top: -1.5rem
+                background-color: $pinkColor
+            &.second
+                left: 0rem;
+                top: -1.5rem;
+                background-color: $greyColor
+            &.third
+                background-color: $yellowColor
+                right: -1.5rem;
+                top: -1.5rem
+            &.four
+                background-color: $redColor
 
-
-
-  </style>
+</style>

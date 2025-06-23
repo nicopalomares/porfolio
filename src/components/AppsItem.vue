@@ -1,6 +1,6 @@
 <template>
     <section id="apps" ref="triggerRef">
-        <a href="/projects">Projects</a>
+        <router-link :to="'/projects'">Projects</router-link>
         <div class="cards_container">
             <div v-for="app in appsContent" :href="app.link" :key="app.title" class="card"
                 :style="{ backgroundColor: app.bgColor }">
@@ -13,7 +13,6 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
 import icon from '@/assets/icons/disc1.svg'
 
 

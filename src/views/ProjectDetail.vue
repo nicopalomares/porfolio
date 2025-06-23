@@ -123,14 +123,15 @@ watch(() => route.params.id, () => {
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    font-family: 'Syne'
+    font-family: 'Syne';
+    padding-top: 5rem;
     .back_button
         width 3rem
         height: 3rem
         position: absolute
         left: 4rem
         transform: rotate(180deg);
-        top: 3rem;
+        top: 2rem;
         cursor: pointer;
         transition: all 0.3s ease-in-out;
         &:hover
@@ -197,7 +198,7 @@ watch(() => route.params.id, () => {
             font-size: 2rem
             border-bottom: 1px solid black
             &:hover
-                color: $pinkColor
+                color: $greyColor
                 transform: translateX(5px)
             &::after
                 content: ''
@@ -215,6 +216,33 @@ watch(() => route.params.id, () => {
             &:hover::after
                 opacity: 1
                 transform: translateX(0)
-
+            h3
+                font-size: 2rem;
+@media screen and (max-width: 768px)
+    .project_detail_container
+        padding-top:5rem
+        .back_button
+            left: 2rem;
+            top: 1.5rem;
+        .project_detail_image
+            img
+                width: 90%
+        .project_detail_text
+            width: 80%;
+            flex-direction: column;
+            margin-bottom: 2rem;
+            .table
+                flex-direction: column;
+                height: auto;
+                table
+                    width: 100%;
+                .description
+                    width: 100%;
+        .container_next
+            padding: 0rem 1rem;
+            a
+                padding-left: 1rem;
+                h3
+                    font-size: 1rem;
 
 </style>

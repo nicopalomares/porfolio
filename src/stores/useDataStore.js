@@ -13,6 +13,7 @@ export const useDataStore = defineStore('data', {
       // let language = t('language')
 
       const { data } = await getProjects(language)
+      console.log('Fetched projects:', data)
       this.projects = data
     },
     fetchProjectById(id) {

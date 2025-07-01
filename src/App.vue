@@ -43,8 +43,6 @@ const route = useRoute()
 .slide-leave-to
   transform: translateX(-100%);
   opacity: 0;
-
-
 .logo
   display: block;
   margin: 0 auto 2rem;

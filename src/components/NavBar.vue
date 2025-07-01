@@ -171,6 +171,9 @@ function toggleMenu() {
 <style lang="stylus" scoped>
 .menu-container
     position: relative;
+    width: 100%;
+    height: 5rem;
+    background-color: white
 .hamburger
     cursor: pointer;
     width: 30px;

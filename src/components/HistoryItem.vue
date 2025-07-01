@@ -3,45 +3,27 @@
         <router-link to="/">
             <img class="back_button" src="@/assets/icons/arrow_right.svg" alt="">
         </router-link>
-        <div class="animation_container" ref="containerRef" v-if="checkWidth()">
+        <div class="animation_container" ref="containerRef" v-if="isDesktop">
             <div class="arrow">
-                <div class="stick top first">
-                    <div class="text-container">
-                        <div class="text">
-                            <h1>H1 2021-2023</h1>
-                            <h2>Lilla Software Studio</h2>
-                            <p>Front end and Mobile developer
-                                .Mendoza, Argentina</p>
+                <template v-for="(job, index) in jobs" :key="index">
+                    <div :class="['stick', job.class, index == 0 || index == 2 ? 'top' : '']">
+                        <div class="text-container">
+                            <div class="text">
+                                <h1>{{ job.period }}</h1>
+                                <h2>{{ job.company }}</h2>
+                                <p>{{ job.role }}<br>.{{ job.location }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="circle first"></div>
-                <div class="stick second">
-                    <div class="text-container">
-                        <div class="text">
-                            <h1>H1 2021-2023</h1>
-                            <h2>Qrio</h2>
-                            <p>Front end and Mobile developer
-                                .Mendoza, Argentina</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="circle second"></div>
-                <div class="stick top third">
-                    <div class="text-container">
-                        <div class="text">
-                            <h1>H1 2023-Now</h1>
-                            <h2>Oeding desing</h2>
-                            <p>Front end developer
-                                .Mendoza, Argentina</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="circle third"></div>
+                    <div :class="['circle', job.class]"></div>
+                </template>
                 <div class="stick four"></div>
                 <div class="circle four"></div>
             </div>
         </div>
+
+        <!-- Y algo similar para el else (mobile) -->
+
         <div v-else class="mobile-container">
             <div class="text first">
                 <h1>H1 2021-2023</h1>
@@ -79,51 +61,79 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { gsap } from 'gsap'
 
-const triggerRef = ref(null)
-const containerRef = ref(null)
 
+
+
+const jobs = [
+    {
+        period: 'H1 2021-2023',
+        company: 'Lilla Software Studio',
+        role: 'Front end and Mobile developer',
+        location: 'Mendoza, Argentina',
+        class: 'first'
+    },
+    {
+        period: 'H1 2021-2023',
+        company: 'Qrio',
+        role: 'Front end and Mobile developer',
+        location: 'Mendoza, Argentina',
+        class: 'second'
+    },
+    {
+        period: 'H1 2023-Now',
+        company: 'Oeding design',
+        role: 'Front end developer',
+        location: 'Mendoza, Argentina',
+        class: 'third'
+    }
+]
+
+const isDesktop = ref(window.innerWidth >= 768)
+const containerRef = ref(null)
+const triggerRef = ref(null)
 let observer = null
 
-function checkWidth() {
-    return window.innerWidth > 768
+function updateWidth() {
+    isDesktop.value = window.innerWidth >= 768
+    if (isDesktop.value) {
+        setupObserver()
+    } else if (observer && triggerRef.value) {
+        observer.unobserve(triggerRef.value)
+    }
 }
 
-onMounted(() => {
+function setupObserver() {
+    if (!containerRef.value || !triggerRef.value) return
+
     const sticks = containerRef.value.querySelectorAll('.stick')
     const circles = containerRef.value.querySelectorAll('.circle')
     const arrow = containerRef.value.querySelectorAll('.arrow')
+
     observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 gsap.to(arrow, {
                     duration: 2,
-                    width: '100%',
+                    width: '90%',
                     ease: 'power2.out',
                     opacity: 1
                 })
-                if (sticks.length > 0) {
-                    let windowWidth = window.innerWidth
-                    sticks.forEach((stick, index) => {
-                        if (stick.classList.contains('top')) {
-                            gsap.to(stick, {
-                                duration: 2,
-                                height: '30vh',
-                                ease: 'power2.out',
-                                opacity: 1
 
-                            })
-                        } else {
-                            gsap.to(stick, {
-                                duration: 2,
-                                height: '30vh',
-                                ease: 'power2.out',
-                                y: '30vh',
-                                opacity: 1
-                            })
-                        }
+                sticks.forEach((stick) => {
+                    const animation = {
+                        duration: 2,
+                        height: '30vh',
+                        ease: 'power2.out',
+                        opacity: 1
+                    }
 
-                    })
-                }
+                    if (!stick.classList.contains('top')) {
+                        animation.y = '30vh'
+                    }
+
+                    gsap.to(stick, animation)
+                })
+
                 gsap.to(circles, {
                     duration: 2,
                     height: '5rem',
@@ -133,16 +143,18 @@ onMounted(() => {
                 })
             }
         })
-    }, {
-        threshold: 0.5
-    })
+    }, { threshold: 0.5 })
 
-    if (triggerRef.value) {
-        observer.observe(triggerRef.value)
-    }
+    observer.observe(triggerRef.value)
+}
+
+onMounted(() => {
+    window.addEventListener('resize', updateWidth)
+    updateWidth()
 })
 
 onUnmounted(() => {
+    window.removeEventListener('resize', updateWidth)
     if (observer && triggerRef.value) {
         observer.unobserve(triggerRef.value)
     }
@@ -165,6 +177,7 @@ onUnmounted(() => {
         height: 4px;
         position relative
         max-width: 1100px;
+        // padding: 0 6rem;
         .arrow
             position: absolute;
             top: 50%;
@@ -173,6 +186,7 @@ onUnmounted(() => {
             background: black;
             opacity :0
             transform: translateY(-50%);
+            left: 5%;
         .arrow::after
             content: "";
             position: absolute;
@@ -193,7 +207,7 @@ onUnmounted(() => {
                 left: 0;
                 background-color: $pinkColor
                 .text
-                    top: -4rem;
+                    top: 3rem;
             &.second
                 left:35%;
                 background-color: $greyColor
@@ -203,22 +217,22 @@ onUnmounted(() => {
                 left: 65%;
                 background-color: $yellowColor
                 .text
-                    top: -4rem;
+                    top: 3rem;
             &.four
-                left:95%;
+                left:90%;
                 background-color: $redColor
             .text-container
                 position: relative
                 .text
-                    width: 40rem;
+                    width: 25rem;
                     position: absolute;
-                    left: 5rem;
+                    left: 2rem;
                     h1
-                        font-size: 37px
+                        font-size: 20px
                     h2
-                        font-size: 60px
+                        font-size: 30px
                     p
-                        font-size: 34px
+                        font-size: 25px
         .circle
             width: 0;
             height: 0;
@@ -237,7 +251,7 @@ onUnmounted(() => {
                 left: calc(65% - 2.5rem);
                 background-color: $yellowColor
             &.four
-                left: calc(95% - 2.5rem);
+                left: calc(90% - 2.5rem);
                 background-color: $redColor
     .title
       margin: auto auto
@@ -246,6 +260,9 @@ onUnmounted(() => {
 @media screen and (max-width: 768px)
     .trigger-section
     .mobile-container
+        display: flex
+        flex-direction: column;
+        align-items: center;
         .text
             width 75%
             margin-bottom: 1rem;

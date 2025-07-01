@@ -129,7 +129,7 @@ onMounted(async () => {
         .text_container
             width: 100%;
             text-align: center;
-            padding: 4rem 1rem 0rem 1rem;
+            padding: 6rem 1rem 0rem 1rem;
             h1
                 font-size: 2rem;
                 margin-bottom: 1rem;

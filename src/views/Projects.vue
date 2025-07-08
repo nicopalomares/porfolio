@@ -171,8 +171,10 @@ const appsContent = [
                 width: 100%;
                 padding: 1rem 2rem;
                 .project
-                    padding: 0
-                    font-size:1.8rem
+                    padding-left: 0.5rem;
+                    &::after
+                        background-image: none
+                        width: 0;
                 .title
                     font-size: 2rem;
                     border-bottom: none;

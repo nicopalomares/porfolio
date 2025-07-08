@@ -1,13 +1,16 @@
 <template>
     <div class="contact_container">
+        <router-link to="/" class="back_button">
+            <img src="@/assets/icons/arrow_right.svg" alt="">
+        </router-link>
         <div class="text_container">
-            <h1>CONTACT ME</h1>
+            <h1>{{ t('contact.title') }}</h1>
         </div>
         <div class="form_container">
             <form @submit.prevent="handleSubmit">
                 <!-- Email -->
                 <div class="input_container">
-                    <label for="email" class="block font-semibold">Email</label>
+                    <label for="email" class="block font-semibold">{{ t('contact.email') }}</label>
                     <input id="email" v-model="email" type="email" class="border p-2 w-full rounded"
                         :class="{ 'border-red-500': emailError }" />
                     <p v-if="emailError" class="text-red-500 text-sm mt-1">{{ emailError }}</p>
@@ -15,13 +18,13 @@
 
                 <!-- Mensaje -->
                 <div class="input_container">
-                    <label for="message" class="block font-semibold">Mensaje</label>
+                    <label for="message" class="block font-semibold">{{ t('contact.message') }}</label>
                     <textarea id="message" v-model="message" class="border p-2 w-full rounded" rows="4"></textarea>
                 </div>
 
                 <!-- Botón de enviar -->
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                    Enviar
+                <button type="submit" class=" text-white px-4 py-2 rounded hover:bg-blue-700">
+                    {{ t('contact.send') }}
                 </button>
             </form>
         </div>
@@ -35,10 +38,12 @@
 import { ref, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useDataStore } from "@/stores/useDataStore.js"
+import { useI18n } from 'vue-i18n'
 
 const email = ref('')
 const message = ref('')
 const emailError = ref('')
+const { t } = useI18n();
 
 function validateEmail(value) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -58,9 +63,9 @@ function handleSubmit() {
 }
 
 
-onMounted(async () => {
-    setData()
-})
+// onMounted(async () => {
+//     setData()
+// })
 
 // watch(() => route.params.id, () => {
 //     setData()
@@ -73,8 +78,18 @@ onMounted(async () => {
 .contact_container
     display: flex
     height: 100vh
-    background-color: $blackColor
-    color: $blueColor
+    .back_button
+                width 3rem
+                height: 3rem
+                position: absolute
+                left: 4rem
+                transform: rotate(180deg);
+                top: 2rem;
+                cursor: pointer;
+                transition: all 0.3s ease-in-out;
+                &:hover
+                    color: $pinkColor
+                    scale: 1.1
     .form_container
         width 50%
         form
@@ -107,7 +122,7 @@ onMounted(async () => {
                 height: 3rem;
                 background: transparent;
                 border: none;
-                color: $blueColor;
+
                 font-size: 2rem;
                 cursor pointer
                 transition: all 0.3s ease-in-out;

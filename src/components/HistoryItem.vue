@@ -1,8 +1,6 @@
 <template>
     <section class="trigger-section" ref="triggerRef">
-        <router-link to="/">
-            <img class="back_button" src="@/assets/icons/arrow_right.svg" alt="">
-        </router-link>
+
         <div class="animation_container" ref="containerRef" v-if="isDesktop">
             <div class="arrow">
                 <template v-for="(job, index) in jobs" :key="index">
@@ -83,7 +81,7 @@ const jobs = [
         period: 'H1 2023-Now',
         company: 'Oeding design',
         role: 'Front end developer',
-        location: 'Mendoza, Argentina',
+        location: 'Leipzig, Germany',
         class: 'third'
     }
 ]
@@ -162,6 +160,18 @@ onUnmounted(() => {
 </script>
 
 <style lang="stylus" scoped>
+  .back_button
+    width 3rem
+    height: 3rem
+    position: absolute
+    left: 4rem
+    transform: rotate(180deg);
+    top: 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    &:hover
+        color: $pinkColor
+        scale: 1.1
 .trigger-section
     height: 100vh;
     position: relative;

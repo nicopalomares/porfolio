@@ -19,7 +19,7 @@ const route = useRoute()
   <nav-bar />
   <div class="page-content" ref="container">
     <router-view v-slot="{ Component }" :key="route.params.id">
-      <transition name="slide" mode="out-in">
+      <transition :name="route.meta.direction === 'back' ? 'slide-back' : 'slide'" mode="out-in">
         <component :is="Component" :key="locale" />
       </transition>
     </router-view>
@@ -47,5 +47,29 @@ const route = useRoute()
   display: block;
   margin: 0 auto 2rem;
 
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.4s ease;
+  position: absolute;
+  width: 100%;
+}
+.slide-enter-from {
+  transform: translateX(100%);
+}
+.slide-leave-to {
+  transform: translateX(-100%);
+}
 
+.slide-back-enter-active,
+.slide-back-leave-active {
+  transition: transform 0.4s ease;
+  position: absolute;
+  width: 100%;
+}
+.slide-back-enter-from {
+  transform: translateX(-100%);
+}
+.slide-back-leave-to {
+  transform: translateX(100%);
+}
 </style>

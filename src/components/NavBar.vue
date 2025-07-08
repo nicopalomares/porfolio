@@ -173,7 +173,7 @@ function toggleMenu() {
     position: relative;
     width: 100%;
     height: 5rem;
-    background-color: white
+
 .hamburger
     cursor: pointer;
     width: 30px;
@@ -249,6 +249,19 @@ function toggleMenu() {
     display: none
     ul
         text-align: center
+        li:first-child
+            a
+                color: $redColor;
+        li:nth-child(2)
+            a
+                color: $yellowColor;
+        li:nth-child(3)
+            a
+                color: $blueColor;
+        li:nth-child(4)
+            a
+                color: $pinkColor;
+
 .dropdown-menu
     list-style none
     padding: 0rem

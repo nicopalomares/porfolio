@@ -124,7 +124,6 @@ watch(() => route.params.id, () => {
     flex-direction: column;
     align-items: center;
     font-family: 'Syne';
-    padding-top: 5rem;
     .back_button
         width 3rem
         height: 3rem

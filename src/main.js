@@ -24,6 +24,19 @@ const i18n = createI18n({
         about: 'About me',
         contact: 'Contact me',
       },
+      contact: {
+        title: 'Contact me',
+        name: 'Name',
+        email: 'E-Mail',
+        message: 'Message',
+        send: 'Send',
+      },
+      about: {
+        title: 'About me',
+        description:
+          "'Hey, my name is Nicolas Palomares and I go by Nickytrip across social medias. I’m a front-end web developer with over 3 years of experience passionate about creating dynamic and user-friendly digital experiences. Alongside coding, I have a deep love for music — I write, produce and explore sound as a way to connect with others. I'm always excited to learn new technologies and express creativity through both code and music.'",
+        resume: 'resume',
+      },
     },
     de: {
       home: {
@@ -38,6 +51,19 @@ const i18n = createI18n({
         about: 'über mich',
         contact: 'kontakt',
       },
+      contact: {
+        title: 'Kontakt me',
+        name: 'Name',
+        email: 'E-Mail',
+        message: 'Nachricht',
+        send: 'Senden',
+      },
+      about: {
+        title: 'Über mich',
+        description:
+          'Hallo, mein Name ist Nicolas Palomares und ich werde in den sozialen Medien Nickytrip genannt. Ich bin ein Front-End-Webentwickler mit über 3 Jahren Erfahrung und einer Leidenschaft für die Erstellung dynamischer und benutzerfreundlicher digitaler Erlebnisse. Neben dem Programmieren habe ich eine tiefe Liebe zur Musik - ich schreibe, produziere und erforsche Sound als einen Weg, um mit anderen in Kontakt zu treten. Ich freue mich immer darauf, neue Technologien zu erlernen und meine Kreativität sowohl durch Code als auch durch Musik auszudrücken.',
+        resume: 'Lebenslauf',
+      },
     },
     es: {
       home: {
@@ -50,6 +76,12 @@ const i18n = createI18n({
         projects: 'Proyectos',
         about: 'Sobre mí',
         contact: 'Contáctame',
+      },
+      about: {
+        title: 'Sobre mí',
+        description:
+          'Hola, mi nombre es Nicolas Palomares y me hago llamar Nickytrip en las redes sociales. Soy un desarrollador web front-end con más de 3 años de experiencia apasionado por la creación de experiencias digitales dinámicas y fáciles de usar. Además de la programación, tengo un profundo amor por la música - escribo, produzco y exploro el sonido como una forma de conectar con los demás. Siempre me entusiasma aprender nuevas tecnologías y expresar mi creatividad a través del código y la música.',
+        resume: 'Resumen',
       },
     },
   },
@@ -64,3 +96,22 @@ app.use(router)
 app.use(i18n)
 app.use(pinia)
 app.mount('#app')
+// router/index.js o main.js
+let historyStack = []
+let direction = 'forward'
+
+router.beforeEach((to, from, next) => {
+  const toIndex = historyStack.indexOf(to.fullPath)
+  const fromIndex = historyStack.indexOf(from.fullPath)
+
+  if (toIndex === -1) {
+    historyStack.push(to.fullPath)
+    direction = 'forward'
+  } else if (toIndex < fromIndex) {
+    direction = 'back'
+  } else {
+    direction = 'forward'
+  }
+  to.meta.direction = direction // guardamos en meta la dirección
+  next()
+})

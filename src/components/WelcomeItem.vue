@@ -5,7 +5,7 @@
     </div>
     <div class="subContainer">
       <div class="second_container">
-        <video autoplay muted loop>
+        <video autoplay muted loop ref="videoRef" @loadeddata="handleVideoLoaded">
           <source src="/src/assets/images/65390-514139029_small.mp4" type="video/mp4" />
         </video>
       </div>
@@ -26,8 +26,20 @@
 
 <script setup>
 
+
 import { useI18n } from 'vue-i18n';
+import { useDataStore } from '@/stores/useDataStore';
+const dataStore = useDataStore();
+import { onMounted, ref } from 'vue';
+const videoRef = ref(null)
+
 const { t } = useI18n();
+onMounted(() => {
+  dataStore.startLoading()
+});
+const handleVideoLoaded = () => {
+  dataStore.stopLoading()
+}
 
 </script>
 

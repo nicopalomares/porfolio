@@ -1,6 +1,6 @@
 <template>
     <section id="projects">
-        <div class="container">
+        <div class="container" v-if="!dataStore.isLoading">
             <router-link to="/" class="back_button">
                 <img src="@/assets/icons/arrow_right.svg" alt="">
             </router-link>
@@ -44,7 +44,6 @@ const handleChange = (newIndex) => {
 
 onMounted(async () => {
     dataStore.fetchProjects(language)
-    console.log('projects mounted', dataStore.projects)
 })
 
 watch(locale, () => {
@@ -56,19 +55,31 @@ const appsContent = [
         bgColor: 'rgba(146, 218, 255, 1)'
     },
     {
-        bgColor: 'blue'
+        bgColor: 'rgba(255, 86, 44, 1)'
     },
     {
-        bgColor: 'red'
+        bgColor: '#5b5bc1'
     },
     {
         bgColor: 'rgba(255, 248, 86, 1)'
     },
     {
-        bgColor: 'rgba(249, 187, 203, 1)'
+        bgColor: 'black'
+    },
+    {
+        bgColor: 'rgba(146, 218, 255, 1)'
     },
     {
         bgColor: 'rgba(255, 86, 44, 1)'
+    },
+    {
+        bgColor: '#5b5bc1'
+    },
+    {
+        bgColor: 'rgba(255, 248, 86, 1)'
+    },
+    {
+        bgColor: 'black'
     },
 ]
 
@@ -103,6 +114,7 @@ const appsContent = [
             padding: 2rem
             display: flex
             flex-direction: column
+            width 45%
             .project
                 border: 1px solid black;
                 all: unset
@@ -138,10 +150,10 @@ const appsContent = [
 
 
         .image_container
-            width: 45vw;
-            height: 45vw;
+            width: 40vw;
             background-color: black;
             position relative
+            max-width: 50rem;
             border-radius: 4rem;
             display: flex;
             justify-content: center;
@@ -149,7 +161,6 @@ const appsContent = [
             align-items: center;
             img
                 width: 60%
-                height: 60%
                 position: absolute
                 opacity 0
                 z-index 0

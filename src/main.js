@@ -26,10 +26,13 @@ const i18n = createI18n({
       },
       contact: {
         title: 'Contact me',
-        name: 'Name',
+        name: 'Company Name',
         email: 'E-Mail',
         message: 'Message',
         send: 'Send',
+        errorEmailMessage: 'Please insert a valid email address',
+        succes: 'Message sent successfully',
+        error: 'Error sending message',
       },
       about: {
         title: 'About me',
@@ -53,16 +56,20 @@ const i18n = createI18n({
       },
       contact: {
         title: 'Kontakt me',
-        name: 'Name',
+        name: 'Firmenname',
         email: 'E-Mail',
         message: 'Nachricht',
         send: 'Senden',
+        errorEmailMessage: 'Bitte geben Sie eine gültige E-Mail-Adresse ein',
+        succes: 'Nachricht erfolgreich gesendet',
+        error: 'Fehler beim Senden der Nachricht',
       },
       about: {
         title: 'Über mich',
         description:
           'Hallo, mein Name ist Nicolas Palomares und ich werde in den sozialen Medien Nickytrip genannt. Ich bin ein Front-End-Webentwickler mit über 3 Jahren Erfahrung und einer Leidenschaft für die Erstellung dynamischer und benutzerfreundlicher digitaler Erlebnisse. Neben dem Programmieren habe ich eine tiefe Liebe zur Musik - ich schreibe, produziere und erforsche Sound als einen Weg, um mit anderen in Kontakt zu treten. Ich freue mich immer darauf, neue Technologien zu erlernen und meine Kreativität sowohl durch Code als auch durch Musik auszudrücken.',
         resume: 'Lebenslauf',
+        recomendationLetter: 'Empfehlungsschreiben',
       },
     },
     es: {
@@ -77,11 +84,22 @@ const i18n = createI18n({
         about: 'Sobre mí',
         contact: 'Contáctame',
       },
+      contact: {
+        title: 'Contactame',
+        name: 'Nombre de la empresa',
+        email: 'E-Mail',
+        message: 'Mensaje',
+        send: 'Enviar',
+        errorEmailMessage: 'Por favor, inserta una dirección de correo electrónico válida',
+        succes: 'Mensaje enviado correctamente',
+        error: 'Error al enviar el mensaje',
+      },
       about: {
         title: 'Sobre mí',
         description:
           'Hola, mi nombre es Nicolas Palomares y me hago llamar Nickytrip en las redes sociales. Soy un desarrollador web front-end con más de 3 años de experiencia apasionado por la creación de experiencias digitales dinámicas y fáciles de usar. Además de la programación, tengo un profundo amor por la música - escribo, produzco y exploro el sonido como una forma de conectar con los demás. Siempre me entusiasma aprender nuevas tecnologías y expresar mi creatividad a través del código y la música.',
-        resume: 'Resumen',
+        resume: 'CV',
+        recomendationLetter: 'Carta de recomendación',
       },
     },
   },

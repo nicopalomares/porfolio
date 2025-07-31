@@ -1,13 +1,11 @@
 <script setup>
-import { RouterLink, RouterView, useRoute } from 'vue-router'
-import { ref, watch, onMounted, watchEffect } from 'vue'
+import { RouterView, useRoute } from 'vue-router'
 import gsap from 'gsap'
 import { SplitText } from 'gsap/all'
 import NavBar from './components/NavBar.vue'
 import { useI18n } from 'vue-i18n'
+import LoadingOverlay from './components/LoadingOverlay.vue'
 const { locale } = useI18n();
-
-
 gsap.registerPlugin(SplitText)
 const route = useRoute()
 
@@ -22,7 +20,10 @@ const route = useRoute()
       <transition :name="route.meta.direction === 'back' ? 'slide-back' : 'slide'" mode="out-in">
         <component :is="Component" :key="locale" />
       </transition>
+      <LoadingOverlay />
     </router-view>
+
+
   </div>
 
 

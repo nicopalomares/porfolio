@@ -8,6 +8,12 @@
         </div>
         <div class="form_container">
             <form @submit.prevent="handleSubmit">
+
+                <!-- Nombre -->
+                <div class="input_container">
+                    <label for="name" class="block font-semibold">{{ t('contact.name') }}</label>
+                    <input id="name" v-model="name" type="text" class="border p-2 w-full rounded" />
+                </div>
                 <!-- Email -->
                 <div class="input_container">
                     <label for="email" class="block font-semibold">{{ t('contact.email') }}</label>
@@ -36,13 +42,15 @@
 
 <script setup>
 import { ref, onMounted, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useDataStore } from "@/stores/useDataStore.js"
 import { useI18n } from 'vue-i18n'
+import { useDataStore } from '@/stores/useDataStore'
+import router from '@/router'
 
 const email = ref('')
+const dataStore = useDataStore()
 const message = ref('')
 const emailError = ref('')
+const name = ref('')
 const { t } = useI18n();
 
 function validateEmail(value) {
@@ -50,26 +58,23 @@ function validateEmail(value) {
     return regex.test(value)
 }
 
-function handleSubmit() {
+
+async function handleSubmit() {
     emailError.value = ''
 
     if (!validateEmail(email.value)) {
-        emailError.value = 'Por favor ingrese un email válido.'
+        emailError.value = t('contact.errorEmailMessage')
         return
+    } else {
+        const res = await dataStore.sendEmail(email.value, message.value, name.value)
+        if (res) {
+            t('contact.succes')
+            router.push('/')
+        } else {
+            t('contact.error')
+        }
     }
-
-    // Aquí iría la lógica para enviar los datos
-    alert('Formulario enviado correctamente 🎉')
 }
-
-
-// onMounted(async () => {
-//     setData()
-// })
-
-// watch(() => route.params.id, () => {
-//     setData()
-// })
 
 </script>
 
@@ -107,7 +112,6 @@ function handleSubmit() {
                     font-size: 1.2rem
                     margin-bottom: 0.5rem
                 input, textarea
-                    color: $blueColor
                     padding: 1rem
                     border-radius: 0.5rem
                     border: 1px solid #92daff;
@@ -121,8 +125,8 @@ function handleSubmit() {
                 width: 100%;
                 height: 3rem;
                 background: transparent;
-                border: none;
-
+                border: 1px solid #92daff;
+                border-radius: 0.5rem
                 font-size: 2rem;
                 cursor pointer
                 transition: all 0.3s ease-in-out;

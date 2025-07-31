@@ -44,6 +44,7 @@ import { ref, watch, onMounted, watchEffect, computed } from 'vue'
 import gsap from 'gsap'
 import { SplitText } from 'gsap/all'
 import { useI18n } from 'vue-i18n'
+import router from '@/router'
 const { t } = useI18n();
 
 gsap.registerPlugin(SplitText)
@@ -63,6 +64,9 @@ function toggleDropdown() {
     isOpenDropdown.value = !isOpenDropdown.value
 }
 function changeLanguage(language) {
+    if (route.name === 'ProjectDetail') {
+        router.push({ name: 'projects' })
+    }
     switch (language) {
         case 'ES':
             setLanguage('es')
@@ -77,6 +81,8 @@ function changeLanguage(language) {
             setLanguage('en')
     }
     isOpenDropdown.value = false
+
+
 }
 
 function onEnter(el) {
@@ -104,7 +110,6 @@ function onLeave(el) {
 const { locale } = useI18n();
 
 const setLanguage = (newLang) => {
-    console.log("Changing language to:", newLang)
     locale.value = newLang;
     lang.value = newLang.toUpperCase();
     localStorage.setItem('lang', newLang);
@@ -252,9 +257,6 @@ function toggleMenu() {
         li:first-child
             a
                 color: $redColor;
-        li:nth-child(2)
-            a
-                color: $yellowColor;
         li:nth-child(3)
             a
                 color: $blueColor;

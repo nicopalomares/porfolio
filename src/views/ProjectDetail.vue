@@ -4,61 +4,66 @@
             <img class="back_button" src="@/assets/icons/arrow_right.svg" alt="">
         </router-link>
 
-        <div class="project_detail_image">
-            <img :src="fullImageUrl(project.images[0].url)" alt="Project Image" />
-        </div>
-
-
-        <div class="project_detail_text">
-            <h1>{{ project.title }}</h1>
-            <div class="table">
-                <table>
-                    <tbody>
-
-                        <tr>
-                            <td>
-                                <h4>Company</h4>
-                            </td>
-                            <td>
-                                <p>{{ project.company.name }}</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h4>Year</h4>
-                            </td>
-                            <td>
-                                <p>{{ project.company.year }}</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h4>Tools</h4>
-                            </td>
-                            <td class="tool_container">
-                                <div v-for="(tool) in project.tool" :key="tool.id">
-                                    <p>{{ tool.name }}</p>
-                                    <img class="icon" :src="fullImageUrl(tool.url)" alt="">
-                                </div>
-                            </td>
-                        </tr>
-
-
-                    </tbody>
-
-                </table>
-                <div class="description" v-if="contentRichText">
-                    <StrapiBlocks :content="contentRichText" />
+        <transition name="fade" mode="out-in" v-show="!dataStore.isLoading">
+            <div class="container">
+                <div class="project_detail_image">
+                    <img :src="fullImageUrl(project.images[0].url)" alt="Project Image" ref="imgRef"
+                        @load="handleImageLoaded" />
                 </div>
 
+                <div class="project_detail_text">
+                    <h1>{{ project.title }}</h1>
+                    <div class="table">
+                        <table>
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <h4>Company</h4>
+                                    </td>
+                                    <td>
+                                        <p>{{ project.company.name }}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h4>Year</h4>
+                                    </td>
+                                    <td>
+                                        <p>{{ project.company.year }}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h4>Tools</h4>
+                                    </td>
+                                    <td class="tool_container">
+                                        <div v-for="(tool) in project.tool" :key="tool.id">
+                                            <p>{{ tool.name }}</p>
+                                            <img class="icon" :src="fullImageUrl(tool.url)" alt="">
+                                        </div>
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+
+                        </table>
+                        <div class="description" v-if="contentRichText">
+                            <StrapiBlocks :content="contentRichText" />
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="project_detail_image">
+                    <img :src="fullImageUrl(img.url)" alt="Project Image" v-for="img in project.images.slice(1)"
+                        :key="img.id" />
+                </div>
             </div>
+        </transition>
 
-        </div>
-
-        <div class="project_detail_image">
-            <img :src="fullImageUrl(img.url)" alt="Project Image" v-for="img in project.images.slice(1)"
-                :key="img.id" />
-        </div>
 
         <div class="container_next" v-if="nextProject">
             <router-link class="project" :to="`/projects/${nextProject.id}`">
@@ -82,18 +87,19 @@ import { useDataStore } from "@/stores/useDataStore.js"
 import { StrapiBlocks } from 'vue-strapi-blocks-renderer';
 
 const dataStore = useDataStore()
+
 const baseUrl = import.meta.env.VITE_BASE_URL
 const route = useRoute()
 const project = ref(null)
 const nextProject = ref(null)
 
 const fullImageUrl = (fileName) => `${baseUrl}${fileName}`
+const imgRef = ref(null)
 
 const setData = async () => {
     let projectId = route.params.id
     const actualProject = await dataStore.fetchProjectById(projectId)
     project.value = actualProject
-    console.log(project.value, "project.value")
     let nexProjectIndex = dataStore.projects.findIndex(item => item.id == projectId) + 1
     nextProject.value = dataStore.projects[nexProjectIndex]
 }
@@ -107,8 +113,13 @@ const contentRichText = computed(() => {
 })
 
 onMounted(async () => {
+    dataStore.startLoading()
     setData()
 })
+
+const handleImageLoaded = () => {
+    dataStore.stopLoading()
+}
 
 watch(() => route.params.id, () => {
     setData()
@@ -124,6 +135,11 @@ watch(() => route.params.id, () => {
     flex-direction: column;
     align-items: center;
     font-family: 'Syne';
+    min-height: 100vh;
+    .container
+        width: 80%;
+        max-width: 1200px;
+        padding: 0rem 5%;
     .back_button
         width 3rem
         height: 3rem
@@ -155,11 +171,11 @@ watch(() => route.params.id, () => {
         display: flex;
         justify-content: flex-start;
         flex-direction: column;
-        width: 70%;
+        width: 100%;
+        margin-bottom: 2rem;
+
         .table
             display: flex
-            height: 15rem
-
             table
                 width 50%
             .description
@@ -220,6 +236,9 @@ watch(() => route.params.id, () => {
 @media screen and (max-width: 768px)
     .project_detail_container
         padding-top:5rem
+        .container
+            width: 95%;
+            padding: 0rem 1rem;
         .back_button
             left: 2rem;
             top: 1.5rem;
@@ -227,7 +246,7 @@ watch(() => route.params.id, () => {
             img
                 width: 90%
         .project_detail_text
-            width: 80%;
+            width: 100%;
             flex-direction: column;
             margin-bottom: 2rem;
             .table

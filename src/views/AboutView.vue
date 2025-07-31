@@ -12,6 +12,9 @@
             {{ t('about.description') }}
           </p>
           <a href="@/assets/images/CV Nicolas Palomares.pdf" download class="resume">↓ {{ t('about.resume') }}</a>
+          <a href="@/assets/images/Arbeitszeugnis_nicolas-palomares.pdf" download class="letter">↓ {{
+            t('about.recomendationLetter')
+            }}</a>
         </div>
         <a href="https://open.spotify.com/artist/620JplsGiq6Lg433rE4DLe?si=XQQsXnWhSHu6ZOXXmKbD0g"
           class="img_container">
@@ -46,8 +49,6 @@ onMounted(() => {
   }, 0)
 })
 
-
-
 </script>
 
 
@@ -75,10 +76,10 @@ onMounted(() => {
     .text_container
       h2
         color $redColor
-      .resume
+      .resume, .letter
         all: unset
         cursor: pointer
-        color: $redColor
+
         font-size: 1.2rem
         position: relative;
         display: inline-block;
@@ -96,6 +97,17 @@ onMounted(() => {
           transition: width 0.3s ease;
         &:hover::before
           width: 100%;
+      .resume
+        color: $redColor
+        &::before
+          background-color: $redColor;
+      .letter
+        color: $blueColor
+        margin-left: 2rem
+        &::before
+          background-color: $blueColor;
+
+
     div
       width 50%
 

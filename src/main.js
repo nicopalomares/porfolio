@@ -39,6 +39,7 @@ const i18n = createI18n({
         description:
           "'Hey, my name is Nicolas Palomares and I go by Nickytrip across social medias. I’m a front-end web developer with over 3 years of experience passionate about creating dynamic and user-friendly digital experiences. Alongside coding, I have a deep love for music — I write, produce and explore sound as a way to connect with others. I'm always excited to learn new technologies and express creativity through both code and music.'",
         resume: 'resume',
+        recomendationLetter: 'Recomendation Letter',
       },
     },
     de: {

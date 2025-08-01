@@ -11,7 +11,7 @@
                 </div>
             </transition>
             <div class="projects_container">
-                <h1 class="title">{{ t('nav.home') }}</h1>
+                <h1 class="title">{{ t('nav.projects') }}</h1>
                 <router-link class="project" v-for="(project, index) in dataStore.projects" :key="index"
                     :class="{ first: index === 0 }"
                     :style="{ color: actualColor == appsContent[index].bgColor ? actualColor : 'inherit' }"

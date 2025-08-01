@@ -7,10 +7,12 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import { createI18n } from 'vue-i18n'
 import vueClickOutsideElement from 'vue-click-outside-element'
 
+const savedLocale = localStorage.getItem('lang') || 'en'
+console.log('Saved locale:', savedLocale)
+
 const i18n = createI18n({
   legacy: false,
-  locale: 'en',
-  fallbackLocale: 'en',
+  locale: savedLocale,
   messages: {
     en: {
       home: {
@@ -37,8 +39,8 @@ const i18n = createI18n({
       about: {
         title: 'About me',
         description:
-          "'Hey, my name is Nicolas Palomares and I go by Nickytrip across social medias. I’m a front-end web developer with over 3 years of experience passionate about creating dynamic and user-friendly digital experiences. Alongside coding, I have a deep love for music — I write, produce and explore sound as a way to connect with others. I'm always excited to learn new technologies and express creativity through both code and music.'",
-        resume: 'resume',
+          "'Hello, my name is Nicolás Palomares, I am 24 years old, and my social media handle is Nickytrip. I am a frontend web developer with over 3 years of experience, and I am passionate about creating dynamic and user-friendly digital experiences. In addition to programming, I have a deep love for music: I compose, produce, and explore sounds as a way to connect with others. I am always excited to learn new technologies and express my creativity through code and music. Find out a little more about me and my story.'",
+        resume: 'Resume',
         recomendationLetter: 'Recomendation Letter',
       },
     },
@@ -68,7 +70,7 @@ const i18n = createI18n({
       about: {
         title: 'Über mich',
         description:
-          'Hallo, mein Name ist Nicolas Palomares und ich werde in den sozialen Medien Nickytrip genannt. Ich bin ein Front-End-Webentwickler mit über 3 Jahren Erfahrung und einer Leidenschaft für die Erstellung dynamischer und benutzerfreundlicher digitaler Erlebnisse. Neben dem Programmieren habe ich eine tiefe Liebe zur Musik - ich schreibe, produziere und erforsche Sound als einen Weg, um mit anderen in Kontakt zu treten. Ich freue mich immer darauf, neue Technologien zu erlernen und meine Kreativität sowohl durch Code als auch durch Musik auszudrücken.',
+          'Hallo, mein Name ist Nicolás Palomares, ich bin 24 Jahre alt und in den sozialen Netzwerken bin ich unter dem Namen Nickytrip bekannt. Ich bin Frontend-Webentwickler mit mehr als 3 Jahren Erfahrung und meine Leidenschaft ist es, dynamische und benutzerfreundliche digitale Erlebnisse zu schaffen. Neben dem Programmieren habe ich eine tiefe Liebe zur Musik: Ich komponiere, produziere und erforsche Klänge, um mich mit anderen zu verbinden. Ich bin immer begeistert davon, neue Technologien zu lernen und meine Kreativität durch Code und Musik auszudrücken. Erfahren Sie mehr über mich und meine Geschichte.',
         resume: 'Lebenslauf',
         recomendationLetter: 'Empfehlungsschreiben',
       },
@@ -98,7 +100,7 @@ const i18n = createI18n({
       about: {
         title: 'Sobre mí',
         description:
-          'Hola, mi nombre es Nicolas Palomares y me hago llamar Nickytrip en las redes sociales. Soy un desarrollador web front-end con más de 3 años de experiencia apasionado por la creación de experiencias digitales dinámicas y fáciles de usar. Además de la programación, tengo un profundo amor por la música - escribo, produzco y exploro el sonido como una forma de conectar con los demás. Siempre me entusiasma aprender nuevas tecnologías y expresar mi creatividad a través del código y la música.',
+          'Hola, me llamo Nicolás Palomares, tengo 24 años y en las redes sociales me llamo Nickytrip. Soy desarrollador web frontend con más de 3 años de experiencia y me apasiona crear experiencias digitales dinámicas y fáciles de usar. Además de la programación, siento un profundo amor por la música: compongo, produzco y exploro sonidos como una forma de conectar con los demás. Siempre me entusiasma aprender nuevas tecnologías y expresar mi creatividad a través del código y la música. Descubre un poco más sobre mí y mi historia.',
         resume: 'CV',
         recomendationLetter: 'Carta de recomendación',
       },

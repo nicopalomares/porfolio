@@ -54,10 +54,11 @@ const lang = ref('EN')
 const allLanguages = ['ES', 'EN', 'DE']
 const isOpen = ref(false)
 const menu = ref(null)
-const container = ref(null)
 const menuItems = ref(null)
 const isOpenDropdown = ref(false)
 let tl
+const { locale } = useI18n();
+
 
 
 function toggleDropdown() {
@@ -107,27 +108,19 @@ function onLeave(el) {
     })
 }
 
-const { locale } = useI18n();
 
 const setLanguage = (newLang) => {
     locale.value = newLang;
     lang.value = newLang.toUpperCase();
     localStorage.setItem('lang', newLang);
-    availableLanguages.value = allLanguages.filter(l => l !== newLang.value)
 };
-
-watchEffect(() => {
-    const storedLang = localStorage.getItem('lang');
-    if (storedLang) {
-        locale.value = storedLang;
-    }
-});
-
-
-
 
 
 onMounted(() => {
+    let storedLang = localStorage.getItem('lang');
+    if (storedLang) {
+        lang.value = storedLang.toUpperCase();
+    }
 
     tl = gsap.timeline({ paused: true })
     tl.to(menu.value, {
@@ -136,11 +129,6 @@ onMounted(() => {
         ease: 'power2.out',
         opacity: 1,
         display: 'block',
-    }, 0)
-    tl.to(container.value, {
-        opacity: 0, // Opacidad baja para el fondo
-        duration: 0.3,
-        ease: 'power1.out'
     }, 0)
     tl.from(menuItems.value.querySelectorAll('li'), {
         y: -30,
@@ -181,15 +169,15 @@ function toggleMenu() {
 
 .hamburger
     cursor: pointer;
-    width: 30px;
-    height: 25px;
+    width: 40px;
+    height: 40px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     z-index: 10;
     position: absolute;
-    right: 2rem;
-    top: 2rem;
+    right: 5rem;
+    top: 30px;
 .language-selector
     cursor: pointer;
     display: flex;
@@ -197,7 +185,7 @@ function toggleMenu() {
     justify-content: space-between;
     z-index: 10;
     position: absolute;
-    right: 8%;
+    right: 10rem;
     top: 1.5rem;
     width: 3rem;
 
@@ -231,14 +219,15 @@ function toggleMenu() {
     border-radius: 2px;
     transition: all 0.3s ease;
 
+
 .hamburger.open span:nth-child(1)
-    transform: rotate(45deg) translate(5px, 5px);
+    transform: rotate(45deg) translate(10px, 10px)
 
 .hamburger.open span:nth-child(2)
     opacity: 0;
 
 .hamburger.open span:nth-child(3)
-    transform: rotate(-45deg) translate(6px, -6px);
+    transform: rotate(-45deg) translate(10px, -10px);
 
 .menu
     position: fixed;
@@ -292,5 +281,8 @@ function toggleMenu() {
 @media screen and (max-width: 768px)
     .language-selector
         right: 5rem;
+    .hamburger
+        right: 1rem;
+
 
 </style>

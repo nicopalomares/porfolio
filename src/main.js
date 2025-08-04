@@ -8,7 +8,6 @@ import { createI18n } from 'vue-i18n'
 import vueClickOutsideElement from 'vue-click-outside-element'
 
 const savedLocale = localStorage.getItem('lang') || 'en'
-console.log('Saved locale:', savedLocale)
 
 const i18n = createI18n({
   legacy: false,

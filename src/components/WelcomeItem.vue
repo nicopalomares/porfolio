@@ -5,9 +5,12 @@
     </div>
     <div class="subContainer">
       <div class="second_container">
-        <video autoplay muted loop ref="videoRef" @loadeddata="handleVideoLoaded">
-          <source src="/src/assets/images/65390-514139029_small.mp4" type="video/mp4" />
+
+        <video playsinline autoplay muted loop ref="videoRef" @loadeddata="handleVideoLoaded">
+          <source :src="video" type="video/mp4" />
+          Your browser does not support the video tag.
         </video>
+
       </div>
       <div class="third_container">
         <h3>{{ t('home.firstHeadling') }}</h3>
@@ -26,18 +29,23 @@
 
 <script setup>
 
+import video from '@/assets/images/video.webm'
+import fallback from '@/assets/images/fallback.svg'
 
 import { useI18n } from 'vue-i18n';
 import { useDataStore } from '@/stores/useDataStore';
 const dataStore = useDataStore();
 import { onMounted, ref } from 'vue';
 const videoRef = ref(null)
+const videoLoaded = ref(false)
+
 
 const { t } = useI18n();
 onMounted(() => {
   dataStore.startLoading()
 });
 const handleVideoLoaded = () => {
+  videoLoaded.value = true
   dataStore.stopLoading()
 }
 
@@ -143,5 +151,17 @@ const handleVideoLoaded = () => {
           padding: 1rem 0rem;
           a
             border-bottom: 1px solid;
+            font-size: 1rem;
+@media screen and (orientation: landscape) and (max-width: 850px)
+  #welcome
+    .subContainer
+      .third_container
+        padding: 1rem 1rem 0rem 1rem;
+        h3
+          font-size: 1.5rem;
+        .buttons_container
+          padding: 1rem
+          height: auto
+          a
             font-size: 1rem;
 </style>

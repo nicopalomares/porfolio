@@ -284,5 +284,10 @@ function toggleMenu() {
     .hamburger
         right: 1rem;
 
+@media screen and (orientation: landscape) and (max-width: 850px)
+    .hamburger
+        right: 2rem
+    .language-selector
+        right: 6rem;
 
 </style>

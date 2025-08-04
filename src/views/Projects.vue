@@ -43,7 +43,8 @@ const handleChange = (newIndex) => {
 }
 
 onMounted(async () => {
-    dataStore.fetchProjects(language)
+
+    dataStore.fetchProjects(language || locale.value)
 })
 
 watch(locale, () => {
@@ -195,4 +196,17 @@ const appsContent = [
                     padding-left: 1rem;
             .image_container
                 display: none
+@media screen and (orientation: landscape) and (max-width: 850px)
+    #projects
+        .container
+            align-items: center;
+            .projects_container
+                h1
+                    font-size: 2.5rem;
+                .project
+                    font-size: 1.5rem;
+            .image_container
+                width: 30vw;
+                height: 70vh;
+
 </style>

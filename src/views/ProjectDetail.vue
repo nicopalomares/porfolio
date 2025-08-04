@@ -131,7 +131,7 @@ watch(() => route.params.id, () => {
 <style lang="stylus">
 .project_detail_container
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     flex-direction: column;
     align-items: center;
     font-family: 'Syne';

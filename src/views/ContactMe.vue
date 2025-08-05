@@ -9,12 +9,11 @@
         <div class="form_container">
             <form @submit.prevent="handleSubmit">
 
-                <!-- Nombre -->
                 <div class="input_container">
                     <label for="name" class="block font-semibold">{{ t('contact.name') }}</label>
                     <input id="name" v-model="name" type="text" class="border p-2 w-full rounded" />
                 </div>
-                <!-- Email -->
+
                 <div class="input_container">
                     <label for="email" class="block font-semibold">{{ t('contact.email') }}</label>
                     <input id="email" v-model="email" type="email" class="border p-2 w-full rounded"
@@ -22,14 +21,13 @@
                     <p v-if="emailError" class="text-red-500 text-sm mt-1">{{ emailError }}</p>
                 </div>
 
-                <!-- Mensaje -->
+
                 <div class="input_container">
                     <label for="message" class="block font-semibold">{{ t('contact.message') }}</label>
-                    <textarea id="message" v-model="message" class="border p-2 w-full rounded" rows="4"></textarea>
+                    <textarea id="message" v-model="message" rows="4"></textarea>
                 </div>
 
-                <!-- Botón de enviar -->
-                <button type="submit" class=" text-white px-4 py-2 rounded hover:bg-blue-700">
+                <button type="submit">
                     {{ t('contact.send') }}
                 </button>
             </form>
@@ -129,6 +127,7 @@ async function handleSubmit() {
                 border-radius: 0.5rem
                 font-size: 2rem;
                 cursor pointer
+                color: #2c3e50
                 transition: all 0.3s ease-in-out;
                 &:hover
                         scale: 1.1

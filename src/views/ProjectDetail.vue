@@ -19,7 +19,7 @@
 
                                 <tr>
                                     <td>
-                                        <h4>Company</h4>
+                                        <h4>{{ t('ProjectDetail.company') }}</h4>
                                     </td>
                                     <td>
                                         <p>{{ project.company.name }}</p>
@@ -27,15 +27,15 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <h4>Year</h4>
+                                        <h4>{{ t('ProjectDetail.year') }}</h4>
                                     </td>
                                     <td>
-                                        <p>{{ project.company.year }}</p>
+                                        <p>{{ project.year }}</p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <h4>Tools</h4>
+                                        <h4>{{ t('ProjectDetail.tools') }}</h4>
                                     </td>
                                     <td class="tool_container">
                                         <div v-for="(tool) in project.tool" :key="tool.id">
@@ -85,9 +85,11 @@ import { ref, onMounted, watch, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useDataStore } from "@/stores/useDataStore.js"
 import { StrapiBlocks } from 'vue-strapi-blocks-renderer';
+import { useI18n } from 'vue-i18n'
+
 
 const dataStore = useDataStore()
-
+const { t } = useI18n();
 const baseUrl = import.meta.env.VITE_BASE_URL
 const route = useRoute()
 const project = ref(null)
@@ -115,6 +117,7 @@ const contentRichText = computed(() => {
 onMounted(async () => {
     dataStore.startLoading()
     setData()
+    console.log(dataStore.projects)
 })
 
 const handleImageLoaded = () => {
@@ -180,6 +183,8 @@ watch(() => route.params.id, () => {
                 width 50%
             .description
                 width 50%
+                strong
+                    font-weight: 600
             td
                 vertical-align: top;
 

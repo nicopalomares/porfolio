@@ -46,7 +46,7 @@
                 <h1>H1 2023-Now</h1>
                 <h2>Oeding desing</h2>
                 <p>Front end developer
-                    .Mendoza, Argentina</p>
+                    .Leipzig, Germany</p>
             </div>
             <div class="stick third">
                 <div class="circle third"></div>

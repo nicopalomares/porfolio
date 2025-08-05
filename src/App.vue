@@ -22,12 +22,7 @@ const route = useRoute()
       </transition>
       <LoadingOverlay />
     </router-view>
-
-
   </div>
-
-
-
 </template>
 
 <style scoped lang="stylus">

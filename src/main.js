@@ -6,6 +6,7 @@ import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import { createI18n } from 'vue-i18n'
 import vueClickOutsideElement from 'vue-click-outside-element'
+import ProjectDetail from './views/ProjectDetail.vue'
 
 const savedLocale = localStorage.getItem('lang') || 'en'
 
@@ -24,6 +25,11 @@ const i18n = createI18n({
         projects: 'Projects',
         about: 'About me',
         contact: 'Contact me',
+      },
+      ProjectDetail: {
+        year: 'Year',
+        company: 'Company',
+        tools: 'Tools',
       },
       contact: {
         title: 'Contact me',
@@ -56,6 +62,11 @@ const i18n = createI18n({
         about: 'über mich',
         contact: 'kontakt',
       },
+      ProjectDetail: {
+        year: 'Jahr',
+        company: 'Firmenname',
+        tools: 'Werkzeuge',
+      },
       contact: {
         title: 'Kontakt me',
         name: 'Firmenname',
@@ -85,6 +96,11 @@ const i18n = createI18n({
         projects: 'Proyectos',
         about: 'Sobre mí',
         contact: 'Contáctame',
+      },
+      ProjectDetail: {
+        year: 'Año',
+        company: 'Compañia',
+        tools: 'Herramientas',
       },
       contact: {
         title: 'Contactame',

@@ -14,8 +14,10 @@
 
       </div>
       <div class="third_container">
-        <h3>{{ t('home.firstHeadling') }}</h3>
-        <h3 class="second-headline">{{ t('home.secondHeadling') }}</h3>
+        <div>
+          <h3>{{ t('home.firstHeadling') }}</h3>
+          <h3 class="second-headline">{{ t('home.secondHeadling') }}</h3>
+        </div>
         <div class="buttons_container">
           <router-link :to="`/projects`">{{ t('nav.projects') }}</router-link>
           <router-link :to="`/about`">{{ t('nav.about') }}</router-link>
@@ -142,6 +144,9 @@ const handleVideoLoaded = () => {
         height: 50%;
         padding: 1rem;
         text-align: center
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
 
         h3
           font-size: 1.5rem;

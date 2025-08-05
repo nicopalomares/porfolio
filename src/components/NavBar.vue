@@ -3,17 +3,19 @@
 
         <div class="menu-container">
             <div class="language-selector" v-click-outside-element="() => isOpenDropdown = false">
-                <button @click="toggleDropdown" class="dropdown-toggle ">
+
+                <li @click="toggleDropdown">
                     {{ lang }}
-                </button>
+                </li>
                 <transition @enter="onEnter" @leave="onLeave">
-                    <ul v-if="isOpenDropdown" ref="dropdown" class="dropdown-menu ">
+                    <div v-if="isOpenDropdown" ref="dropdown" class="dropdown-menu ">
                         <li v-for="lang in availableLanguages" :key="lang" @click="changeLanguage(lang)"
                             class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
                             {{ lang }}
                         </li>
-                    </ul>
+                    </div>
                 </transition>
+
             </div>
 
 
@@ -168,67 +170,37 @@ function toggleMenu() {
     height: 5rem;
 
 .hamburger
+    cursor: pointer
     cursor: pointer;
     width: 40px;
     height: 40px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     z-index: 10;
     position: absolute;
     right: 5rem;
     top: 30px;
-.language-selector
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    z-index: 10;
-    position: absolute;
-    right: 10rem;
-    top: 1.5rem;
-    width: 3rem;
+    padding: 0.2rem;
+    span
+        display: block
+        width: 40px
+        height: 4px
+        background: black
+        border-radius: 2px
+        transition: all 0.3s ease
+        transform-origin: center
 
+    &.open
 
+        span:nth-child(1)
+            transform: rotate(45deg) translate(9px, 13px);
 
-.hamburger:hover span:nth-child(1)
-    transform: translateX(3px);
+        span:nth-child(2)
+            opacity: 0
 
-
-.hamburger:hover span:nth-child(2)
-    transform: translateX(-3px);
-
-
-.hamburger:hover span:nth-child(3)
-    transform: translateX(2px);
-
-.hamburger.open span:nth-child(1)
-    transform: rotate(45deg) translate(5px, 5px);
-
-
-.hamburger.open span:nth-child(2)
-    opacity: 0;
-
-.hamburger.open span:nth-child(3)
-    transform: rotate(-45deg) translate(5px, -5px);
-
-.hamburger span
-    display: block;
-    height: 4px;
-    background: black;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-
-
-.hamburger.open span:nth-child(1)
-    transform: rotate(45deg) translate(10px, 10px)
-
-.hamburger.open span:nth-child(2)
-    opacity: 0;
-
-.hamburger.open span:nth-child(3)
-    transform: rotate(-45deg) translate(10px, -10px);
-
+        span:nth-child(3)
+            transform: rotate(-45deg) translate(8px, -12px);
 .menu
     position: fixed;
     z-index: 2;
@@ -257,16 +229,36 @@ function toggleMenu() {
     list-style none
     padding: 0rem
     text-align: center
-.dropdown-toggle
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
+
+.language-selector
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 10;
+    position: absolute;
+    right: 10rem;
+    top: 30px;
+    width: 40px;
+    min-height: 40px;
     border: 1px solid;
     background: none;
-    cursor pointer
-    transition: scale 0.3s ease;
-    &:hover
-        scale: 1.05;
+    border-radius: 4px;
+    li
+        list-style: none;
+        margin-top: .2rem;
+        text-align: center;
+        height: 2rem;
+        line-height: 33px;
+        transition: font-size 0.1s ease;
+        &:hover
+            font-size: 1.1rem;
+
+    .dropdown-menu
+        li
+            border-top: 1px solid;
+            &:hover
+                font-size: 1.1rem;
 .menu ul
     list-style: none;
     padding: 0;
@@ -280,9 +272,9 @@ function toggleMenu() {
     font-size: 1.5rem;
 @media screen and (max-width: 768px)
     .language-selector
-        right: 5rem;
+        right: 6rem;
     .hamburger
-        right: 1rem;
+        right: 2rem;
 
 @media screen and (orientation: landscape) and (max-width: 850px)
     .hamburger

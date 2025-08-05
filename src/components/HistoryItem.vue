@@ -166,7 +166,7 @@ onUnmounted(() => {
     position: absolute
     left: 4rem
     transform: rotate(180deg);
-    top: 2rem;
+    top: 1.6rem;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     &:hover
@@ -268,6 +268,8 @@ onUnmounted(() => {
       text-align: center
       font-size: 10rem
 @media screen and (max-width: 768px)
+    .back_button
+        left: 2rem;
     .trigger-section
     .mobile-container
         display: flex

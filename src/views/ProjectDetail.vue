@@ -146,7 +146,7 @@ watch(() => route.params.id, () => {
         position: absolute
         left: 4rem
         transform: rotate(180deg);
-        top: 2rem;
+        top: 1.6rem;
         cursor: pointer;
         transition: all 0.3s ease-in-out;
         &:hover

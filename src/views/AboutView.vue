@@ -14,7 +14,7 @@
           <a href="@/assets/images/CV Nicolas Palomares.pdf" download class="resume">↓ {{ t('about.resume') }}</a>
           <a href="@/assets/images/Arbeitszeugnis_nicolas-palomares.pdf" download class="letter">↓ {{
             t('about.recomendationLetter')
-            }}</a>
+          }}</a>
         </div>
         <a href="https://open.spotify.com/artist/620JplsGiq6Lg433rE4DLe?si=XQQsXnWhSHu6ZOXXmKbD0g"
           class="img_container">
@@ -60,7 +60,7 @@ onMounted(() => {
   position: absolute
   left: 2rem;
   transform: rotate(180deg);
-  top: 1.5rem;
+  top: 1.6rem;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   &:hover
@@ -143,6 +143,8 @@ onMounted(() => {
 
 
 @media screen and (max-width: 768px)
+  .back_button
+    left: 2rem
   .about
     padding-top: 5rem
     .info_container

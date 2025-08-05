@@ -7,7 +7,8 @@
       <div class="second_container">
 
         <video playsinline autoplay muted loop ref="videoRef" @loadeddata="handleVideoLoaded">
-          <source :src="video" type="video/mp4" />
+          <source :src="videoWebm" type="video/webm" />
+          <source :src="videoMp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
 
@@ -29,7 +30,8 @@
 
 <script setup>
 
-import video from '@/assets/images/video.webm'
+import videoWebm from '@/assets/images/video.webm'
+import videoMp4 from '@/assets/images/video.mp4'
 import fallback from '@/assets/images/fallback.svg'
 
 import { useI18n } from 'vue-i18n';
@@ -65,6 +67,7 @@ const handleVideoLoaded = () => {
       margin: auto auto
       text-align: center
       font-size: 10rem
+
   .subContainer
     height: 50%
     display: flex
@@ -125,6 +128,7 @@ const handleVideoLoaded = () => {
       height: 30vh;
       .title
         font-size: 2rem;
+        margin: auto auto 4rem;
     .subContainer
       flex-direction: column-reverse;
       height: 70vh;
@@ -154,13 +158,16 @@ const handleVideoLoaded = () => {
             font-size: 1rem;
 @media screen and (orientation: landscape) and (max-width: 850px)
   #welcome
+    .first_container
+      .title
+        font-size: 4rem;
     .subContainer
       .third_container
         padding: 1rem 1rem 0rem 1rem;
         h3
           font-size: 1.5rem;
         .buttons_container
-          padding: 1rem
+          padding: 0rem
           height: auto
           a
             font-size: 1rem;

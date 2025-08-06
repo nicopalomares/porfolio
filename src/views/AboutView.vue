@@ -11,10 +11,10 @@
           <p>
             {{ t('about.description') }}
           </p>
-          <a href="@/assets/images/CV Nicolas Palomares.pdf" download class="resume">↓ {{ t('about.resume') }}</a>
-          <a href="@/assets/images/Arbeitszeugnis_nicolas-palomares.pdf" download class="letter">↓ {{
+          <a :href="cv" download class="resume">↓ {{ t('about.resume') }}</a>
+          <a :href="arbaietszeugnis" download class="letter">↓ {{
             t('about.recomendationLetter')
-          }}</a>
+            }}</a>
         </div>
         <a href="https://open.spotify.com/artist/620JplsGiq6Lg433rE4DLe?si=XQQsXnWhSHu6ZOXXmKbD0g"
           class="img_container">
@@ -29,6 +29,8 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
+import cv from '@/assets/images/CVNicolasPalomares.pdf';
+import arbaietszeugnis from '@/assets/images/Arbeitszeugnis_nicolas-palomares.pdf';
 import HistoryItem from '../components/HistoryItem.vue';
 import gsap from 'gsap';
 import { SplitText } from 'gsap/all'

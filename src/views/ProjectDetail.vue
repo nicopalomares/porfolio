@@ -117,7 +117,6 @@ const contentRichText = computed(() => {
 onMounted(async () => {
     dataStore.startLoading()
     setData()
-    console.log(dataStore.projects)
 })
 
 const handleImageLoaded = () => {

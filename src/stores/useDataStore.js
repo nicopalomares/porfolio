@@ -12,8 +12,10 @@ export const useDataStore = defineStore('data', {
     async fetchProjects(language) {
       this.startLoading()
       try {
-        const { data } = await getProjects(language)
-        this.projects = data
+        const res = await getProjects(language)
+        if (res) {
+          this.projects = res.data
+        }
       } catch (error) {
         console.error('Error fetching projects:', error)
       } finally {
